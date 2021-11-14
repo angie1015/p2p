@@ -1,0 +1,45 @@
+{% extends "layout.html"%}
+{% block content%}
+<div class="container-fluid">
+   <div class="row">
+      <div class="col-md-8"
+         style="box-shadow: 0 8px 16px rgba(0, 0, 0, .1); background:#fff; padding:5%; border-radius:3%;width:600px">
+         <div class="row">
+      <div class="col-md-12">
+          <div class="projects-section-header text-center">
+                    <p class="text-center">Scoreboard</p>
+                <div class="small" style="text-align:center;">{{days}} days remaining for the next lot</div>
+
+                </div></div>
+            <div class="text-center">
+                     </div>
+            <div class="col-md-12 py-5 text-center" style="margin-left:2%;">
+             <table class="table table-striped table-hover" style="width:600px">
+        <thead>
+        <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Score</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            {% for i in rank_user %}
+            {% if i.score >0 %}
+            <td scope="row">{{i.username}}</td>
+            <td>{{i.score}}</td>
+              {% endif %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+			</div>
+         </div>
+      </div>
+
+       <div class="col-md-4">
+           <img class="d-block img-fluid" src="/static/scoreboard.svg" style="height:500px;width:500px">
+       </div>
+   </div>
+
+</div>
+{% endblock%}

@@ -1,0 +1,125 @@
+{% extends "layout.html"%} {% block content%}
+<div class="homeDiv">
+    <div class="row">
+        <div class="col-md-9 projects-section">
+            <div class="row">
+                {% for i in showQuestion %}
+                <a style="text-decoration: none;" href="{{ url_for('ParticularQuestion', questionid=i.id, user=i.askedby_name) }}">
+                    <div class="col-md-6 posts">
+                        <div class="project-boxes jsGridView">
+                            <div class="project-box-wrapper">
+                                <div class="project-box">
+                                    <div class="project-box-content-header row">
+                                        <div class="col-md-10">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <a href="/profile">
+                                                        <img class="img rounded-circle" src="{{i.askedby_img}}" alt="User" width="50" height="50" />
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <p class="box-content-header" style="color: #1a1a1a;">{{i.askedby_name}}</p>
+                                                    <hr />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <p class="box-content-subheader">
+                                                <b style="font-size: 25px;" class="text-color">{{ i.question }}</b>
+                                            </p>
+                                            <span style="color: #495057; font-size: 16px;"> {{i.shortdescription }}</span>
+                                            <br />
+                                            <br />
+                                            <div class="badge badge-pill" style="background-color: #e9ecef; font-size: 11px;">{{i.tags}}</div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="">
+                                                <div class="days-left" style="float: right;">
+                                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-lightning-fill" fill="orange" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z" />
+                                                    </svg>
+                                                    {{i.pay}}
+                                                </div>
+                                                <div></div>
+                                                <div class="participants">
+                                                    <img
+                                                        src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80"
+                                                        alt="participant"
+                                                    />
+                                                    <img
+                                                        src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60"
+                                                        alt="participant"
+                                                    />
+                                                    <button class="add-participant" style="color: #ff942e;">
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            width="12"
+                                                            height="12"
+                                                            viewBox="0 0 24 24"
+                                                            fill="none"
+                                                            stroke="currentColor"
+                                                            stroke-width="3"
+                                                            stroke-linecap="round"
+                                                            stroke-linejoin="round"
+                                                            class="feather feather-plus"
+                                                        >
+                                                            <path d="M12 5v14M5 12h14" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="messages-section">
+                <div class="projects-section-header">
+                    <p class="text-center">Upcoming meetings</p>
+                    <br>
+                </div>
+
+                <ul>
+                    {% for i in meeting %} {% if i.date == today %}
+                    <div class="messages">
+                        <div class="message-box">
+                            <div class="message-content">
+                                <div class="message-header">
+                                    <div class="name"><b>Today, meeting with {{i.to_username}} on at {{i.time}}</b></div>
+                                </div>
+                                 <button type="submit" class="btn btn-secondary btn-sm" style="float:right">
+                                        <a href="http://localhost:3000/" style="color:white;">
+                                            Join <br />
+                                            Meeting
+                                        </a>
+                                    </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% elif i.date > today %}
+
+                    <div class="messages">
+                        <div class="message-box">
+                            <div class="message-content">
+                                <div class="message-header">
+                                    <div class="name">Meeting with {{i.to_username}}</div>
+                                </div>
+                                <p class="message-line">There is a meeting with {{i.to_username}} on {{i.date}} at {{i.time}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% endif %} {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock%}

@@ -1,0 +1,246 @@
+{% extends "layout.html"%}
+{% block content%}
+<div class="container-fluid">
+   <div class="row">
+      <div class="col-12"
+         style="box-shadow: 0 8px 16px rgba(0, 0, 0, .1); background:#fff; padding:5%; border-radius:3%">
+         <div class="row">
+            <div class="col-md-11">
+               <div class="projects-section-header">
+                    <p class="text-center">History</p>
+
+                </div>
+            </div>
+            <div class=" py-5">
+               <div class="row">
+                  <!-- Start lane -->
+                  <div class="col-12 col-lg-4">
+                     <div class="card mb-3" style=" border-top: 5px solid #e03131;">
+                        <div class="card-header bg-light">
+                           <h3 class="card-title h5 mb-1">
+                              Pending
+                           </h3>
+                           <small class="mb-0 text-muted">
+                           Not assigned to anyone
+                           </small>
+                        </div>
+                        <div class="card-body">
+                           <div class="tasks" id="backlog">
+                              <!-- Start task -->
+                              <div class=" mb-3 cursor-grab">
+                                 <div class="">
+                                    {% for i in myQuestion %}
+                                    <div class="row">
+                                       {%if i.status=='Pending'%}
+                                       <div class="col-12">
+                                          <br>
+                                          <h5>{{ loop.index }}.
+                                             <a href="{{ url_for('ParticularQuestion', questionid=i.id, user=True) }}"
+                                                style="color:black !important"> {{ i.question }} </a>
+                                          </h5>
+                                          <small class="text-muted">{{i.shortdescription }}</small> <br><br>
+                                          <div class="row">
+                                             <div class="col-md-4">
+                                                <br>
+                                                <span class="badge--sm badge-light badge-pill">
+                                                   <svg width="0.6em" height="0.6em" viewBox="0 0 16 16" class="bi bi-lightning-fill" fill="orange"
+                                                      xmlns="http://www.w3.org/2000/svg">
+                                                      <path fill-rule="evenodd"
+                                                         d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"/>
+                                                   </svg>
+                                                   <small>{{i.pay}}</small>
+                                                </span>
+                                                <br>
+                                             </div>
+                                             <div class="col-md-7">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <button type="submit" class="btn btn-danger btn-sm" value="{{ i.id }}">
+                                                <a href="{{ url_for('Delete', id=i.id) }}" style="color:white !important"><i
+                                                   class="fas fa-trash-alt"></i></a>
+                                                </button>
+                                             </div>
+                                          </div>
+                                          <br>
+                                          <hr>
+                                       </div>
+                                       {% endif %}
+                                    </div>
+                                    <br>
+                                    {% endfor %}
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- End lane -->
+                  <!-- Start lane -->
+                  <div class="col-12 col-lg-4">
+                     <div class="card mb-3" style=" border-top: 5px solid #1c7ed6;">
+                        <div class="card-header bg-light">
+                           <h3 class="card-title h5 mb-1"  >
+                              In Progress
+                           </h3>
+                           <small class="mb-0 text-muted">
+                           Assigned to a mentor.
+                           </small>
+                        </div>
+                        <div class="card-body">
+                           <div class="tasks" id="backlog1">
+                              <!-- Start task -->
+                              <div class=" mb-3 cursor-grab">
+                                 <div class="">
+                                    {% for i in myQuestion %}
+                                    <div class="row">
+                                       {%if i.status=='Assigned'%}
+                                       <div class="col-12">
+                                          <br>
+                                          <h5>{{ loop.index }}.
+                                             <a href="{{ url_for('ParticularQuestion', questionid=i.id, user=True) }}"
+                                                style="color:black !important"> {{ i.question }} </a>
+                                          </h5>
+                                          <small class="text-muted">{{i.shortdescription }}</small> <br><br>
+                                          <div class="row">
+                                             <div class="col-md-4">
+                                                <br>
+                                                <span class="badge--sm badge-light badge-pill">
+                                                   <svg width="0.6em" height="0.6em" viewBox="0 0 16 16" class="bi bi-lightning-fill" fill="orange"
+                                                      xmlns="http://www.w3.org/2000/svg">
+                                                      <path fill-rule="evenodd"
+                                                         d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"/>
+                                                   </svg>
+                                                   <small>{{i.pay}}</small>
+                                                </span>
+                                                <br>
+                                             </div>
+                                             <div class="col-md-7">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <button type="submit" class="btn btn-dark btn-sm" value="{{ i.id }}" data-toggle="modal" data-target="#exampleModal">
+                                                <a style="color:white !important">
+                                               <i class="fas fa-calendar-alt"></i>
+                                                <small>Schedule call</small></a>
+                                                </button>
+                                                <button type="submit" class="btn btn-dark btn-sm" value="{{ i.id }}">
+                                                <a href="{{ url_for('DoubtSolved', id=i.id) }}" style="color:white !important">
+                                                <i
+                                                   class="fas fa-check-circle fa-sm"></i>
+                                                <small>Issue solved </small></a>
+                                                </button>
+                                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                   <div class="modal-dialog" role="document">
+                                                      <div class="modal-content">
+                                                         <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Schedule the meeting</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                         </div>
+                                                         <div class="modal-body text-center"  style="padding-left:20%;">
+                                                            <form action="" method="post">
+                                                                  <div class="form-group text-center">
+                                                                Enter Question id:  <input id="text" name="qid" width="270" placeholder="{{i.id}}"/>
+
+                                                               </div>
+
+                                                               <div class="form-group text-center">
+                                                                  <input id="datepicker" name="date" width="270" placeholder="Pick the date"/>
+                                                               </div>
+                                                               <br>
+                                                               <div class="form-group text-center">
+                                                                  <input class="timepicker" name="time" id="event-time" type="text" value="" required="" width="270"
+                                                                     placeholder="Pick the time">
+                                                               </div>
+                                                               <button type="submit" class="btn btn-dark text-center" id="appointment" style="margin-left:50%">Book now
+                                                               </button>
+                                                            </form>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <br>
+                                          <hr>
+                                       </div>
+                                       {% endif %}
+                                    </div>
+                                    <br>
+                                    {% endfor %}
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- End lane -->
+                  <!-- Start lane -->
+                  <div class="col-12 col-lg-4">
+                     <div class="card mb-3"  style=" border-top: 5px solid #099268;">
+                        <div class="card-header bg-light">
+                           <h3 class="card-title h5 mb-1">
+                              Completed
+                           </h3>
+                           <small class="mb-0 text-muted">
+                           Task is completed
+                           </small>
+                        </div>
+                        <div class="card-body">
+                           <div class="tasks" id="backlog3">
+                              <!-- Start task -->
+                              <div class=" mb-3 cursor-grab">
+                                 <div class="">
+                                    {% for i in myQuestion %}
+                                    <div class="row">
+                                       {%if i.status=='Solved'%}
+                                       <div class="col-12">
+                                          <br>
+                                          <h5>{{ loop.index }}.
+                                             <a href="{{ url_for('ParticularQuestion', questionid=i.id, user=True) }}"
+                                                style="color:black !important"> {{ i.question }} </a>
+                                          </h5>
+                                          <small class="text-muted">{{i.shortdescription }}</small> <br><br>
+                                          <div class="row">
+                                             <div class="col-md-4">
+                                                <br>
+                                                <span class="badge--sm badge-light badge-pill">
+                                                   <svg width="0.6em" height="0.6em" viewBox="0 0 16 16" class="bi bi-lightning-fill" fill="orange"
+                                                      xmlns="http://www.w3.org/2000/svg">
+                                                      <path fill-rule="evenodd"
+                                                         d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"/>
+                                                   </svg>
+                                                   <small>{{i.pay}}</small>
+                                                </span>
+                                                <br>
+                                             </div>
+                                          </div>
+                                          <br>
+                                          <hr>
+                                       </div>
+                                       {% endif %}
+                                    </div>
+                                    <br>
+                                    {% endfor %}
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- End lane -->
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <script src="Scripts/ClockPicker.js"></script>
+   <script>
+      $('.timepicker').timepicker({
+        });
+
+          $('#datepicker').datepicker({
+               uiLibrary: 'bootstrap'
+           });
+
+   </script>
+</div>
+{% endblock%}
